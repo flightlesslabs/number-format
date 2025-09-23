@@ -1,0 +1,41 @@
+import { Source } from '@storybook/addon-docs/blocks';
+import item from '../../../package.json?raw';
+
+<main style={{ textAlign: 'center' }}>
+
+<img src="dodo-circle-6.png" style={{ width: 200, height: 'auto' }} />
+
+# Number Format
+
+<h3 style={{ fontWeight: 500 }}>v{JSON.parse(item)?.version}</h3>
+
+<h3 style={{ fontWeight: 400 }}>Number Format and Number Input components for Svelte.</h3>
+
+### [Github](https://github.com/flightlesslabs/number-format) - [npm](https://www.npmjs.com/package/@flightlesslabs/number-format)
+
+</main>
+
+<br />
+<br />
+
+## Install
+
+pnpm
+
+<Source
+  dark
+  language="bash"
+  code={`
+pnpm add @flightlesslabs/number-format
+`}
+/>
+
+npm
+
+<Source
+  dark
+  language="bash"
+  code={`
+npm i @flightlesslabs/number-format
+`}
+/>
