@@ -1,5 +1,4 @@
 <script lang="ts" module>
-  import type { MaskaDetail } from 'maska';
   import type {
     FormEventHandler,
     ChangeEventHandler,
@@ -8,28 +7,8 @@
     KeyboardEventHandler,
   } from 'svelte/elements';
 
-  export type NumericInputFocusEvent = FocusEvent & {
-    currentTarget: EventTarget & HTMLInputElement;
-  };
-
-  export type NumericInputClipboardEvent = ClipboardEvent & {
-    currentTarget: EventTarget & HTMLInputElement;
-  };
-
-  export type NumericInputInputEvent = Event & {
-    currentTarget: EventTarget & HTMLInputElement;
-  };
-
-  export type NumericInputKeyboardEvent = KeyboardEvent & {
-    currentTarget: EventTarget & HTMLInputElement;
-  };
-
-  export interface NumericInputProccesedValue extends MaskaDetail {
-    isValid: boolean;
-    value: number | undefined;
-  }
-
   export interface NumericInputProps {
+    /** Basic */
     /** NumericInput ref */
     value?: number;
     /** NumericInput ref */
@@ -46,6 +25,34 @@
     name?: string;
     /** Id */
     id?: string;
+    /** Customize */
+    /** Allow Negative */
+    allowNegative?: boolean;
+    /** Decimal Places */
+    decimalPlaces?: number;
+    /** prefix */
+    prefix?: string;
+    /** suffix */
+    suffix?: string;
+    /** Get comma separated Currency value */
+    formatCurrency?: boolean;
+    /** Lakh Separator (for Indian Currency) */
+    lakhSeparator?: boolean;
+    /** min */
+    min?: number;
+    /** max */
+    max?: number;
+    /** Decimal Separator. Default '.' */
+    decimalSeparator?: string;
+    /** Allow padding the decimal places with zeros.. Default false */
+    decimalPadding?: boolean;
+    /** Comma Separator. Default ',' */
+    commaSeparator?: string;
+    /** Determine if the element value can be incremented / decremented with the up and down arrow keys. */
+    modifyValueOnUpDownArrow?: boolean;
+    /** Determine if the element value can be incremented / decremented with the mouse wheel. */
+    modifyValueOnWheel?: boolean;
+    /** Events */
     /** oninput event handler */
     oninput?: FormEventHandler<HTMLInputElement>;
     /** onchange event handler */
@@ -67,25 +74,13 @@
     /** onkeyup event handler */
     onkeyup?: KeyboardEventHandler<HTMLInputElement>;
     /** on Numeric Value Change */
-    onValueChange?: (value: NumericInputProccesedValue) => void;
-    /** Allow Negative */
-    allowNegative?: boolean;
-    /** Decimal Places */
-    decimalPlaces?: number;
-    /** prefix */
-    prefix?: string;
-    /** suffix */
-    suffix?: string;
-    /** Get comma separated Currency value */
-    formatCurrency?: boolean;
-    /** Lakh Separator (for Indian Currency) */
-    lakhSeparator?: boolean;
+    onValueChange?: () => void;
   }
 </script>
 
 <script lang="ts">
-  import { maska } from 'maska/svelte';
-  import validateNumber from '../helpers/validateNumber.js';
+  import AutoNumeric from 'autonumeric';
+  import { onDestroy, onMount } from 'svelte';
 
   let {
     class: className = '',
@@ -108,88 +103,87 @@
     id,
     allowNegative = false,
     decimalPlaces = 0,
-    prefix,
-    suffix,
+    prefix = '',
+    suffix = '',
     formatCurrency = false,
     lakhSeparator = false,
     onValueChange,
+    min,
+    max,
+    decimalSeparator = '.',
+    commaSeparator = ',',
+    modifyValueOnUpDownArrow = false,
+    modifyValueOnWheel = false,
+    decimalPadding = false,
   }: NumericInputProps = $props();
 
-  let formattedValue = $state('');
-  const locale = $derived(lakhSeparator ? 'en-IN' : 'en-US');
+  let an = $state<AutoNumeric | null>(null);
 
-  // postProcess adds prefix/suffix after masking
-  function postProcess(val: string) {
-    if (!val) return '';
+  onMount(() => {
+    if (!ref) return;
 
-    let newVal = val.replace(`${suffix}`, '')?.trim();
+    an = new AutoNumeric(ref, value);
+  });
 
-    return `${prefix || ''}${newVal}${suffix || ''}`;
-  }
-
-  function preProcess(val: string) {
-    if (!val) return '';
-
-    return val.trim().replace(`${suffix}`, '').trim();
-  }
-
-  function sanitizeNumber(val: string | undefined): number | undefined {
-    if (!val) return undefined;
-
-    // Remove everything except digits, decimal point, and minus sign
-    const sanitized = val.replace(/[^\d.-]/g, '');
-
-    const result = parseFloat(sanitized);
-
-    return isNaN(result) ? NaN : result;
-  }
-
-  function onValueChangeMod(detail: MaskaDetail) {
-    const [isValid, validValue] = validateNumber(detail.unmasked);
-
-    if (isValid) {
-      value = validValue;
+  onDestroy(() => {
+    if (!an) {
+      return;
     }
 
-    if (onValueChange) {
-      onValueChange({
-        isValid,
-        value: validValue,
-        ...detail,
-      });
-    }
-  }
-
-  $effect(() => {
-    if (value != undefined) {
-      const numberFormat = new Intl.NumberFormat(locale, {
-        maximumFractionDigits: decimalPlaces,
-      }).format(value);
-
-      formattedValue = `${prefix || ''}${numberFormat}${suffix || ''}`;
-    } else {
-      formattedValue = '';
-    }
+    an.wipe();
   });
 
   $effect(() => {
-    console.log(value);
+    if (!an) {
+      return;
+    }
+
+    an.update({
+      decimalCharacter: decimalSeparator,
+      modifyValueOnUpDownArrow,
+      modifyValueOnWheel,
+      allowDecimalPadding: decimalPadding,
+      suffixText: suffix,
+      currencySymbol: prefix,
+      decimalPlaces,
+    });
+
+    // Comma format only when formatCurrency is true
+    if (formatCurrency) {
+      an.update({ digitGroupSeparator: commaSeparator });
+    } else {
+      an.update({ digitGroupSeparator: '' });
+    }
+
+    // formatCurrency lakh Separator
+    if (lakhSeparator) {
+      an.update({ digitalGroupSpacing: '2s' });
+    } else {
+      an.update({ digitalGroupSpacing: '3' });
+    }
+
+    // Max value
+    if (max || max === 0) {
+      an.update({ maximumValue: `${max}` });
+    } else {
+      // Hack to prevent crash
+      an.update({ maximumValue: '9999999999999.99' });
+    }
+
+    if (min || min === 0) {
+      an.update({ minimumValue: `${min}` });
+    } else if (allowNegative) {
+      // Hack to prevent crash
+      an.update({ minimumValue: '-9999999999999.99' });
+    } else {
+      an.update({ minimumValue: '0' });
+    }
   });
 </script>
 
 <input
-  class={['NumericInput', className].join(' ')}
+  class={className}
   bind:this={ref}
-  use:maska={{
-    preProcess,
-    postProcess,
-    number: {
-      locale,
-      fraction: decimalPlaces,
-      unsigned: !allowNegative,
-    },
-    onMaska: onValueChangeMod,
-  }}
   {name}
   {id}
   {disabled}
@@ -205,5 +199,4 @@
   {onkeyup}
   {placeholder}
   {readonly}
-  bind:value={formattedValue}
 />
