@@ -27,6 +27,6 @@
 <!-- Lakh Separator for INR -->
 <Story name="Lakh Separator" args={{ formatCurrency: true, lakhSeparator: true }} />
 
-<Story name="Suffix" args={{ suffix: ' Units' }} />
-
 <Story name="Prefix" args={{ prefix: '$' }} />
+
+<Story name="Suffix" args={{ suffix: ' Units' }} />

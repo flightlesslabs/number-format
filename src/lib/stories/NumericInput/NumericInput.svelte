@@ -7,6 +7,8 @@
     KeyboardEventHandler,
   } from 'svelte/elements';
 
+  export type AutoNumericCallbackOptions = CallbackOptions;
+
   export interface NumericInputProps {
     /** Basic */
     /** NumericInput ref */
@@ -38,9 +40,9 @@
     formatCurrency?: boolean;
     /** Lakh Separator (for Indian Currency) */
     lakhSeparator?: boolean;
-    /** min */
+    /** min, should not be less than -9999999999999.99 */
     min?: number;
-    /** max */
+    /** max, should not exceed 9999999999999.99 */
     max?: number;
     /** Decimal Separator. Default '.' */
     decimalSeparator?: string;
@@ -79,7 +81,7 @@
 </script>
 
 <script lang="ts">
-  import AutoNumeric from 'autonumeric';
+  import AutoNumeric, { type CallbackOptions } from 'autonumeric';
   import { onDestroy, onMount } from 'svelte';
 
   let {
@@ -138,46 +140,53 @@
       return;
     }
 
-    an.update({
-      decimalCharacter: decimalSeparator,
-      modifyValueOnUpDownArrow,
-      modifyValueOnWheel,
-      allowDecimalPadding: decimalPadding,
-      suffixText: suffix,
-      currencySymbol: prefix,
-      decimalPlaces,
-    });
-
-    // Comma format only when formatCurrency is true
-    if (formatCurrency) {
-      an.update({ digitGroupSeparator: commaSeparator });
-    } else {
-      an.update({ digitGroupSeparator: '' });
-    }
-
-    // formatCurrency lakh Separator
-    if (lakhSeparator) {
-      an.update({ digitalGroupSpacing: '2s' });
-    } else {
-      an.update({ digitalGroupSpacing: '3' });
-    }
-
-    // Max value
-    if (max || max === 0) {
-      an.update({ maximumValue: `${max}` });
-    } else {
-      // Hack to prevent crash
-      an.update({ maximumValue: '9999999999999.99' });
-    }
+    // minimumValue
+    let minimumValue: string = '0';
 
     if (min || min === 0) {
-      an.update({ minimumValue: `${min}` });
+      minimumValue = `${min}`;
     } else if (allowNegative) {
-      // Hack to prevent crash
-      an.update({ minimumValue: '-9999999999999.99' });
+      minimumValue = '-9999999999999.99';
     } else {
-      an.update({ minimumValue: '0' });
+      minimumValue = '0';
     }
+
+    const options: AutoNumericCallbackOptions = {
+      // max value
+      maximumValue: max || max === 0 ? `${max}` : '9999999999999.99',
+
+      // min value
+      minimumValue,
+
+      // Comma format only when formatCurrency is true
+      digitGroupSeparator: formatCurrency ? commaSeparator : '',
+
+      // formatCurrency lakh Separator
+      digitalGroupSpacing: lakhSeparator ? '2s' : '3',
+
+      // Decimal Places
+      decimalPlaces,
+
+      // Decimal Separator
+      decimalCharacter: decimalSeparator,
+
+      // Dcimal Padding
+      allowDecimalPadding: decimalPadding,
+
+      // suffix
+      suffixText: suffix,
+
+      // prefix
+      currencySymbol: prefix,
+
+      // Control value with arrows
+      modifyValueOnUpDownArrow,
+
+      // Control value with mouse wheel
+      modifyValueOnWheel,
+    };
+
+    an.update(options);
   });
 </script>
 
