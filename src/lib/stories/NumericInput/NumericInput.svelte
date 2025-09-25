@@ -24,10 +24,9 @@
     currentTarget: EventTarget & HTMLInputElement;
   };
 
-  export interface NumericInputProccesedValue {
+  export interface NumericInputProccesedValue extends MaskaDetail {
+    isValid: boolean;
     value: number | undefined;
-    masked: string;
-    detail: MaskaDetail;
   }
 
   export interface NumericInputProps {
@@ -86,6 +85,7 @@
 
 <script lang="ts">
   import { maska } from 'maska/svelte';
+  import validateNumber from '../helpers/validateNumber.js';
 
   let {
     class: className = '',
@@ -100,7 +100,7 @@
     onkeydown,
     onkeypress,
     onkeyup,
-    value: valueRaw,
+    value = $bindable<number | undefined>(),
     placeholder,
     disabled,
     readonly,
@@ -115,7 +115,8 @@
     onValueChange,
   }: NumericInputProps = $props();
 
-  let value = $state(typeof valueRaw === 'number' ? `${valueRaw}` : '');
+  let formattedValue = $state('');
+  const locale = $derived(lakhSeparator ? 'en-IN' : 'en-US');
 
   // postProcess adds prefix/suffix after masking
   function postProcess(val: string) {
@@ -132,11 +133,11 @@
     return val.trim().replace(`${suffix}`, '').trim();
   }
 
-  function sanitizeNumber(value: string | undefined): number | undefined {
-    if (!value) return undefined;
+  function sanitizeNumber(val: string | undefined): number | undefined {
+    if (!val) return undefined;
 
     // Remove everything except digits, decimal point, and minus sign
-    const sanitized = value.replace(/[^\d.-]/g, '');
+    const sanitized = val.replace(/[^\d.-]/g, '');
 
     const result = parseFloat(sanitized);
 
@@ -144,30 +145,35 @@
   }
 
   function onValueChangeMod(detail: MaskaDetail) {
-    const sanitizedValue = sanitizeNumber(detail.masked);
-    const masked = detail.masked;
+    const [isValid, validValue] = validateNumber(detail.unmasked);
+
+    if (isValid) {
+      value = validValue;
+    }
 
     if (onValueChange) {
       onValueChange({
-        value: sanitizedValue,
-        masked,
-        detail,
+        isValid,
+        value: validValue,
+        ...detail,
       });
     }
   }
 
-  function oninputMod(e: NumericInputInputEvent) {
-    const target = e.target as HTMLInputElement;
+  $effect(() => {
+    if (value != undefined) {
+      const numberFormat = new Intl.NumberFormat(locale, {
+        maximumFractionDigits: decimalPlaces,
+      }).format(value);
 
-    value = target.value;
-
-    if (oninput) {
-      oninput(e);
+      formattedValue = `${prefix || ''}${numberFormat}${suffix || ''}`;
+    } else {
+      formattedValue = '';
     }
-  }
+  });
 
   $effect(() => {
-    console.log(valueRaw);
+    console.log(value);
   });
 </script>
 
@@ -178,7 +184,7 @@
     preProcess,
     postProcess,
     number: {
-      locale: lakhSeparator ? 'en-IN' : 'en-US',
+      locale,
       fraction: decimalPlaces,
       unsigned: !allowNegative,
     },
@@ -187,7 +193,7 @@
   {name}
   {id}
   {disabled}
-  oninput={oninputMod}
+  {oninput}
   {onchange}
   {onfocus}
   {onblur}
@@ -199,5 +205,5 @@
   {onkeyup}
   {placeholder}
   {readonly}
-  {value}
+  bind:value={formattedValue}
 />

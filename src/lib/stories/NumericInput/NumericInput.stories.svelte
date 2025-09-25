@@ -30,11 +30,10 @@
   name="Format Currency"
   args={{
     onValueChange: (val: NumericInputProccesedValue) => {
-      console.log(val);
-
-      value = val.value;
+      // console.log(val);
+      // value = val.value;
     },
-    prefix: '$',
+    // prefix: '$',
     allowNegative: true,
     decimalPlaces: 2,
     formatCurrency: true,
@@ -46,8 +45,6 @@
   name="Lakh Separator"
   args={{
     onValueChange: (val: NumericInputProccesedValue) => {
-      console.log(val);
-
       value = val.value;
     },
     prefix: '₹',
