@@ -76,7 +76,7 @@
     /** onkeyup event handler */
     onkeyup?: KeyboardEventHandler<HTMLInputElement>;
     /** on Numeric Value Change */
-    onValueChange?: (value: number | null | undefined, formattedValue: string) => void;
+    onValueChange?: (value: number | undefined, formattedValue: string) => void;
   }
 </script>
 
@@ -101,7 +101,7 @@
     value = $bindable<number | undefined>(),
     placeholder,
     disabled,
-    readonly,
+    readonly = false,
     name,
     id,
     allowNegative = false,
@@ -153,6 +153,9 @@
     }
 
     const options: AutoNumericCallbackOptions = {
+      // readonly
+      readOnly: readonly,
+
       // max value
       maximumValue: max || max === 0 ? `${max}` : '9999999999999.99',
 
@@ -234,7 +237,9 @@
     updateValue(raw, formatted);
 
     if (onValueChange) {
-      onValueChange(raw, formatted);
+      const numericValue = raw === null ? undefined : raw;
+
+      onValueChange(numericValue, formatted);
     }
   }
 </script>
@@ -256,5 +261,4 @@
   {onkeypress}
   {onkeyup}
   {placeholder}
-  {readonly}
 />

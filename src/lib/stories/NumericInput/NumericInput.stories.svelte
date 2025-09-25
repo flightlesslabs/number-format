@@ -30,3 +30,7 @@
 <Story name="Prefix" args={{ prefix: '$' }} />
 
 <Story name="Suffix" args={{ suffix: ' Units' }} />
+
+<Story name="Disabled" args={{ disabled: true }} />
+
+<Story name="Readonly" args={{ readonly: true }} />
