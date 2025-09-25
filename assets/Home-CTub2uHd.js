@@ -1,4 +1,4 @@
-import{j as e,S as s}from"./blocks-BELXAL9A.js";import{useMDXComponents as r}from"./index-DywBW-zP.js";import"./preload-helper-PPVm8Dsz.js";import"./_commonjsHelpers-CqkleIqs.js";import"./iframe-DrOfXRVh.js";const o=`{
+import{j as e,S as s}from"./blocks-CM0Hytg6.js";import{useMDXComponents as r}from"./index-ZJ2lVUpI.js";import"./preload-helper-PPVm8Dsz.js";import"./_commonjsHelpers-CqkleIqs.js";import"./iframe-BKph511O.js";const o=`{
   "name": "@flightlesslabs/number-format",
   "version": "0.0.0",
   "scripts": {
@@ -92,7 +92,7 @@ import{j as e,S as s}from"./blocks-BELXAL9A.js";import{useMDXComponents as r}fro
     "pnpm": "10.15.0"
   },
   "dependencies": {
-    "maska": "^3.2.0"
+    "autonumeric": "^4.10.9"
   }
 }
 `;function i(t){const n={a:"a",h1:"h1",h2:"h2",h3:"h3",p:"p",...r(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsxs("main",{style:{textAlign:"center"},children:[e.jsx("img",{src:"dodo-circle-6.png",style:{width:200,height:"auto"}}),e.jsx(n.h1,{id:"number-format",children:"Number Format"}),e.jsxs("h3",{style:{fontWeight:500},children:["v",JSON.parse(o)?.version]}),e.jsx("h3",{style:{fontWeight:400},children:"Number Format and Number Input components for Svelte."}),e.jsxs(n.h3,{id:"github---npm",children:[e.jsx(n.a,{href:"https://github.com/flightlesslabs/number-format",rel:"nofollow",children:"Github"})," - ",e.jsx(n.a,{href:"https://www.npmjs.com/package/@flightlesslabs/number-format",rel:"nofollow",children:"npm"})]})]}),`
