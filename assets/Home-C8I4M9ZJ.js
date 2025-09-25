@@ -1,4 +1,4 @@
-import{j as e,S as s}from"./blocks-CM0Hytg6.js";import{useMDXComponents as r}from"./index-ZJ2lVUpI.js";import"./preload-helper-PPVm8Dsz.js";import"./_commonjsHelpers-CqkleIqs.js";import"./iframe-BKph511O.js";const o=`{
+import{j as e,S as s}from"./blocks-qsCcGwnb.js";import{useMDXComponents as r}from"./index-DCsWMrdH.js";import"./preload-helper-PPVm8Dsz.js";import"./_commonjsHelpers-CqkleIqs.js";import"./iframe-D_4VCaqu.js";const o=`{
   "name": "@flightlesslabs/number-format",
   "version": "0.0.0",
   "scripts": {
