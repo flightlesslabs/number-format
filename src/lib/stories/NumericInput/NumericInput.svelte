@@ -76,13 +76,14 @@
     /** onkeyup event handler */
     onkeyup?: KeyboardEventHandler<HTMLInputElement>;
     /** on Numeric Value Change */
-    onValueChange?: () => void;
+    onValueChange?: (value: number | null | undefined, formattedValue: string) => void;
   }
 </script>
 
 <script lang="ts">
   import AutoNumeric, { type CallbackOptions } from 'autonumeric';
   import { onDestroy, onMount } from 'svelte';
+  import type { InputInputEvent } from '../types.js';
 
   let {
     class: className = '',
@@ -188,6 +189,54 @@
 
     an.update(options);
   });
+
+  $effect(() => {
+    if (!an) {
+      return;
+    }
+
+    const current = an.getNumber();
+
+    if (current === value) {
+      return;
+    }
+
+    an.set(value === undefined ? '' : `${value}`);
+  });
+
+  function updateValue(val: number | null | undefined, formattedValue: string) {
+    // minus sign
+    if (allowNegative && val === 0 && formattedValue?.trim() === '-') {
+      return;
+    }
+
+    if (val === null) {
+      value = undefined;
+      return;
+    }
+
+    if (formattedValue?.trim() === '') {
+      value = undefined;
+      return;
+    }
+
+    value = val;
+  }
+
+  function oninputMod(e: InputInputEvent) {
+    const raw = an?.getNumber() ?? null;
+    const formatted = an?.getFormatted() ?? '';
+
+    if (oninput) {
+      oninput(e);
+    }
+
+    updateValue(raw, formatted);
+
+    if (onValueChange) {
+      onValueChange(raw, formatted);
+    }
+  }
 </script>
 
 <input
@@ -196,7 +245,7 @@
   {name}
   {id}
   {disabled}
-  {oninput}
+  oninput={oninputMod}
   {onchange}
   {onfocus}
   {onblur}
