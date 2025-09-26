@@ -15,6 +15,8 @@
     value?: number;
     /** NumericInput ref */
     ref?: HTMLInputElement;
+    /** AutoNumeric Instance */
+    autoNumericInstance?: AutoNumeric | null;
     /** Custom css class */
     class?: string;
     /** How round should the border radius be? */
@@ -90,6 +92,7 @@
   let {
     class: className = '',
     ref = $bindable<HTMLInputElement>(),
+    autoNumericInstance = $bindable<AutoNumeric | null>(null),
     oninput,
     onchange,
     onblur,
@@ -123,24 +126,24 @@
     autoNumericCallbackOptions,
   }: NumericInputProps = $props();
 
-  let an = $state<AutoNumeric | null>(null);
+  let formattedValueCached = $state('');
 
   onMount(() => {
     if (!ref) return;
 
-    an = new AutoNumeric(ref, value);
+    autoNumericInstance = new AutoNumeric(ref, value);
   });
 
   onDestroy(() => {
-    if (!an) {
+    if (!autoNumericInstance) {
       return;
     }
 
-    an.wipe();
+    autoNumericInstance.wipe();
   });
 
   $effect(() => {
-    if (!an) {
+    if (!autoNumericInstance) {
       return;
     }
 
@@ -180,17 +183,14 @@
       // Dcimal Padding
       allowDecimalPadding: decimalPadding,
 
-      // suffix
-      suffixText: suffix,
-
-      // prefix
-      currencySymbol: prefix,
-
       // Control value with arrows
       modifyValueOnUpDownArrow,
 
       // Control value with mouse wheel
       modifyValueOnWheel,
+
+      // Hack: Hide suffux/prefix when hover
+      emptyInputBehavior: 'press',
     };
 
     if (autoNumericCallbackOptions !== undefined) {
@@ -200,21 +200,43 @@
       };
     }
 
-    an.update(options);
+    autoNumericInstance.update(options);
   });
 
   $effect(() => {
-    if (!an) {
+    if (!autoNumericInstance) {
       return;
     }
 
-    const current = an.getNumber();
+    const current = autoNumericInstance.getNumber();
 
     if (current === value) {
       return;
     }
 
-    an.set(value === undefined ? '' : `${value}`);
+    autoNumericInstance.set(value === undefined ? '' : `${value}`);
+  });
+
+  $effect(() => {
+    if (!autoNumericInstance) {
+      return;
+    }
+
+    if (!suffix && !prefix) {
+      return;
+    }
+
+    const isValueExists = formattedValueCached.trim() !== '' ? true : false;
+
+    const suffixOptions: AutoNumericCallbackOptions = {
+      // suffix
+      suffixText: isValueExists ? suffix : '',
+
+      // prefix
+      currencySymbol: isValueExists ? prefix : '',
+    };
+
+    autoNumericInstance.update(suffixOptions);
   });
 
   function updateValue(val: number | null | undefined, formattedValue: string) {
@@ -237,14 +259,16 @@
   }
 
   function oninputMod(e: InputInputEvent) {
-    const raw = an?.getNumber() ?? null;
-    const formatted = an?.getFormatted() ?? '';
+    const raw = autoNumericInstance?.getNumber() ?? null;
+    const formatted = autoNumericInstance?.getFormatted() ?? '';
 
     if (oninput) {
       oninput(e);
     }
 
     updateValue(raw, formatted);
+
+    formattedValueCached = formatted;
 
     if (onValueChange) {
       const numericValue = raw === null ? undefined : raw;
