@@ -1,6 +1,6 @@
-import{j as e}from"./index-Dlwx_-PB.js";import{useMDXComponents as i}from"./index-BM3H6bQe.js";import{S as t}from"./blocks-CY3F8OdI.js";import"./_commonjsHelpers-CqkleIqs.js";import"./preload-helper-PPVm8Dsz.js";import"./iframe-B6iS_z2c.js";const l=`{
+import{j as e}from"./index-Dlwx_-PB.js";import{useMDXComponents as i}from"./index-BM3H6bQe.js";import{S as t}from"./blocks-Bj8_I1tl.js";import"./_commonjsHelpers-CqkleIqs.js";import"./preload-helper-PPVm8Dsz.js";import"./iframe-BdsUXA2e.js";const l=`{
   "name": "@flightlesslabs/number-format",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "scripts": {
     "build": "vite build && pnpm run prepack",
     "preview": "vite preview",
