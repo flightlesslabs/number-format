@@ -1,6 +1,6 @@
-import{j as e,S as s}from"./blocks-PT2IdJQi.js";import{useMDXComponents as r}from"./index-DJ5Sk63t.js";import"./preload-helper-PPVm8Dsz.js";import"./_commonjsHelpers-CqkleIqs.js";import"./iframe-HdEjoWid.js";const o=`{
+import{j as e}from"./index-Dlwx_-PB.js";import{useMDXComponents as r}from"./index-BM3H6bQe.js";import{S as s}from"./blocks-Tjah5PpG.js";import"./_commonjsHelpers-CqkleIqs.js";import"./preload-helper-PPVm8Dsz.js";import"./iframe-DCgWRAeO.js";const o=`{
   "name": "@flightlesslabs/number-format",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "build": "vite build && pnpm run prepack",
     "preview": "vite preview",
@@ -51,28 +51,28 @@ import{j as e,S as s}from"./blocks-PT2IdJQi.js";import{useMDXComponents as r}fro
     "@chromatic-com/storybook": "^4.1.1",
     "@eslint/compat": "^1.4.0",
     "@eslint/js": "^9.36.0",
-    "@storybook/addon-a11y": "^9.1.7",
-    "@storybook/addon-docs": "^9.1.7",
+    "@storybook/addon-a11y": "^9.1.8",
+    "@storybook/addon-docs": "^9.1.8",
     "@storybook/addon-svelte-csf": "^5.0.8",
-    "@storybook/addon-vitest": "^9.1.7",
-    "@storybook/sveltekit": "^9.1.7",
+    "@storybook/addon-vitest": "^9.1.8",
+    "@storybook/sveltekit": "^9.1.8",
     "@sveltejs/adapter-auto": "^6.1.0",
     "@sveltejs/adapter-static": "^3.0.9",
-    "@sveltejs/kit": "^2.43.1",
-    "@sveltejs/package": "^2.5.3",
-    "@sveltejs/vite-plugin-svelte": "^6.2.0",
+    "@sveltejs/kit": "^2.43.5",
+    "@sveltejs/package": "^2.5.4",
+    "@sveltejs/vite-plugin-svelte": "^6.2.1",
     "@types/node": "^24.5.2",
     "eslint": "^9.36.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-storybook": "^9.1.7",
+    "eslint-plugin-storybook": "^9.1.8",
     "eslint-plugin-svelte": "^3.12.4",
     "globals": "^16.4.0",
     "prettier": "^3.6.2",
     "prettier-plugin-svelte": "^3.4.0",
     "publint": "^0.3.13",
-    "sass": "^1.93.1",
-    "storybook": "^9.1.7",
-    "svelte": "^5.39.4",
+    "sass": "^1.93.2",
+    "storybook": "^9.1.8",
+    "svelte": "^5.39.6",
     "svelte-check": "^4.3.2",
     "svelte-preprocess": "^6.0.3",
     "typescript": "^5.9.2",
@@ -89,7 +89,7 @@ import{j as e,S as s}from"./blocks-PT2IdJQi.js";import{useMDXComponents as r}fro
   },
   "volta": {
     "node": "22.18.0",
-    "pnpm": "10.15.0"
+    "pnpm": "10.17.0"
   },
   "dependencies": {
     "autonumeric": "^4.10.9"
@@ -106,4 +106,4 @@ pnpm add @flightlesslabs/number-format
 `,e.jsx(n.p,{children:"npm"}),`
 `,e.jsx(s,{dark:!0,language:"bash",code:`
 npm i @flightlesslabs/number-format
-`})]})}function m(t={}){const{wrapper:n}={...r(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(i,{...t})}):i(t)}export{m as default};
+`})]})}function h(t={}){const{wrapper:n}={...r(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(i,{...t})}):i(t)}export{h as default};
