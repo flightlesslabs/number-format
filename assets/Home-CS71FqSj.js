@@ -1,6 +1,6 @@
-import{j as e}from"./index-Dlwx_-PB.js";import{useMDXComponents as r}from"./index-BM3H6bQe.js";import{S as s}from"./blocks-Tjah5PpG.js";import"./_commonjsHelpers-CqkleIqs.js";import"./preload-helper-PPVm8Dsz.js";import"./iframe-DCgWRAeO.js";const o=`{
+import{j as e}from"./index-Dlwx_-PB.js";import{useMDXComponents as r}from"./index-BM3H6bQe.js";import{S as s}from"./blocks-DDbsb5Qh.js";import"./_commonjsHelpers-CqkleIqs.js";import"./preload-helper-PPVm8Dsz.js";import"./iframe-CRRDtFC9.js";const o=`{
   "name": "@flightlesslabs/number-format",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "scripts": {
     "build": "vite build && pnpm run prepack",
     "preview": "vite preview",
@@ -12,7 +12,8 @@ import{j as e}from"./index-Dlwx_-PB.js";import{useMDXComponents as r}from"./inde
     "dev": "storybook dev -p 6006",
     "build-storybook": "storybook build && touch ./storybook-static/.nojekyll",
     "check": "pnpm run svelte-check && eslint . && pnpm run lint",
-    "check:fix": "pnpm run svelte-check && eslint . && pnpm run format"
+    "check:fix": "pnpm run svelte-check && eslint . && pnpm run format",
+    "test": "vitest --run"
   },
   "homepage": "https://flightlesslabs.github.io/number-format",
   "repository": {
@@ -62,6 +63,7 @@ import{j as e}from"./index-Dlwx_-PB.js";import{useMDXComponents as r}from"./inde
     "@sveltejs/package": "^2.5.4",
     "@sveltejs/vite-plugin-svelte": "^6.2.1",
     "@types/node": "^24.5.2",
+    "@vitest/browser": "^3.2.3",
     "eslint": "^9.36.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-storybook": "^9.1.8",
@@ -77,7 +79,8 @@ import{j as e}from"./index-Dlwx_-PB.js";import{useMDXComponents as r}from"./inde
     "svelte-preprocess": "^6.0.3",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1",
-    "vite": "^7.1.7"
+    "vite": "^7.1.7",
+    "vitest": "^3.2.3"
   },
   "keywords": [
     "svelte"
@@ -95,7 +98,7 @@ import{j as e}from"./index-Dlwx_-PB.js";import{useMDXComponents as r}from"./inde
     "autonumeric": "^4.10.9"
   }
 }
-`;function i(t){const n={a:"a",h1:"h1",h2:"h2",h3:"h3",p:"p",...r(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsxs("main",{style:{textAlign:"center"},children:[e.jsx("img",{src:"dodo-circle-6.png",style:{width:200,height:"auto"}}),e.jsx(n.h1,{id:"number-format",children:"Number Format"}),e.jsxs("h3",{style:{fontWeight:500},children:["v",JSON.parse(o)?.version]}),e.jsx("h3",{style:{fontWeight:400},children:"Number Format and Number Input components for Svelte."}),e.jsxs(n.h3,{id:"github---npm",children:[e.jsx(n.a,{href:"https://github.com/flightlesslabs/number-format",rel:"nofollow",children:"Github"})," - ",e.jsx(n.a,{href:"https://www.npmjs.com/package/@flightlesslabs/number-format",rel:"nofollow",children:"npm"})]})]}),`
+`;function i(t){const n={a:"a",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",ul:"ul",...r(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsxs("main",{style:{textAlign:"center"},children:[e.jsx("img",{src:"dodo-circle-6.png",style:{width:200,height:"auto"}}),e.jsx(n.h1,{id:"number-format",children:"Number Format"}),e.jsxs("h3",{style:{fontWeight:500},children:["v",JSON.parse(o)?.version]}),e.jsx("h3",{style:{fontWeight:400},children:"Number Format and Number Input components for Svelte."}),e.jsxs(n.h3,{id:"github---npm",children:[e.jsx(n.a,{href:"https://github.com/flightlesslabs/number-format",rel:"nofollow",children:"Github"})," - ",e.jsx(n.a,{href:"https://www.npmjs.com/package/@flightlesslabs/number-format",rel:"nofollow",children:"npm"})]})]}),`
 `,e.jsx("br",{}),`
 `,e.jsx("br",{}),`
 `,e.jsx(n.h2,{id:"install",children:"Install"}),`
@@ -106,4 +109,13 @@ pnpm add @flightlesslabs/number-format
 `,e.jsx(n.p,{children:"npm"}),`
 `,e.jsx(s,{dark:!0,language:"bash",code:`
 npm i @flightlesslabs/number-format
-`})]})}function h(t={}){const{wrapper:n}={...r(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(i,{...t})}):i(t)}export{h as default};
+`}),`
+`,e.jsx(n.h2,{id:"usage-example",children:"Usage example"}),`
+`,e.jsxs(n.p,{children:["Let's import ",e.jsx(n.a,{href:"?path=/docs/numericinput--docs",children:"NumericInput"})]}),`
+`,e.jsx(s,{dark:!0,language:"ts",code:`
+import { NumericInput } '@flightlesslabs/number-format';
+`}),`
+`,e.jsx(n.h2,{id:"explore-more",children:"Explore more"}),`
+`,e.jsxs(n.ul,{children:[`
+`,e.jsx(n.li,{children:e.jsx(n.a,{href:"?path=/docs/numericinput--docs",children:"NumericInput"})}),`
+`]})]})}function h(t={}){const{wrapper:n}={...r(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(i,{...t})}):i(t)}export{h as default};
