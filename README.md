@@ -2,6 +2,6 @@
 
 # Number Format
 
-Number Format and Number Input components for Svelte.
+Number Format, Currency, Number Inputs and more for Svelte.
 
 ### [Github](https://github.com/flightlesslabs/number-format) - [npm](https://www.npmjs.com/package/@flightlesslabs/number-format)
