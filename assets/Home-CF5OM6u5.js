@@ -1,4 +1,4 @@
-import{j as e}from"./index-Dlwx_-PB.js";import{useMDXComponents as r}from"./index-BM3H6bQe.js";import{S as s}from"./blocks-DDbsb5Qh.js";import"./_commonjsHelpers-CqkleIqs.js";import"./preload-helper-PPVm8Dsz.js";import"./iframe-CRRDtFC9.js";const o=`{
+import{j as e}from"./index-Dlwx_-PB.js";import{useMDXComponents as i}from"./index-BM3H6bQe.js";import{S as t}from"./blocks-CaBu1X-_.js";import"./_commonjsHelpers-CqkleIqs.js";import"./preload-helper-PPVm8Dsz.js";import"./iframe-D1CQZTFM.js";const l=`{
   "name": "@flightlesslabs/number-format",
   "version": "1.1.0",
   "scripts": {
@@ -98,24 +98,25 @@ import{j as e}from"./index-Dlwx_-PB.js";import{useMDXComponents as r}from"./inde
     "autonumeric": "^4.10.9"
   }
 }
-`;function i(t){const n={a:"a",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",ul:"ul",...r(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsxs("main",{style:{textAlign:"center"},children:[e.jsx("img",{src:"dodo-circle-6.png",style:{width:200,height:"auto"}}),e.jsx(n.h1,{id:"number-format",children:"Number Format"}),e.jsxs("h3",{style:{fontWeight:500},children:["v",JSON.parse(o)?.version]}),e.jsx("h3",{style:{fontWeight:400},children:"Number Format and Number Input components for Svelte."}),e.jsxs(n.h3,{id:"github---npm",children:[e.jsx(n.a,{href:"https://github.com/flightlesslabs/number-format",rel:"nofollow",children:"Github"})," - ",e.jsx(n.a,{href:"https://www.npmjs.com/package/@flightlesslabs/number-format",rel:"nofollow",children:"npm"})]})]}),`
+`;function r(s){const n={a:"a",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",ul:"ul",...i(),...s.components};return e.jsxs(e.Fragment,{children:[e.jsxs("main",{style:{textAlign:"center"},children:[e.jsx("img",{src:"dodo-circle-6.png",style:{width:200,height:"auto"}}),e.jsx(n.h1,{id:"number-format",children:"Number Format"}),e.jsxs("h3",{style:{fontWeight:500},children:["v",JSON.parse(l)?.version]}),e.jsx("h3",{style:{fontWeight:400},children:"Number Format, Currency, Number Inputs and more for Svelte."}),e.jsxs(n.h3,{id:"github---npm",children:[e.jsx(n.a,{href:"https://github.com/flightlesslabs/number-format",rel:"nofollow",children:"Github"})," - ",e.jsx(n.a,{href:"https://www.npmjs.com/package/@flightlesslabs/number-format",rel:"nofollow",children:"npm"})]})]}),`
 `,e.jsx("br",{}),`
 `,e.jsx("br",{}),`
 `,e.jsx(n.h2,{id:"install",children:"Install"}),`
 `,e.jsx(n.p,{children:"pnpm"}),`
-`,e.jsx(s,{dark:!0,language:"bash",code:`
+`,e.jsx(t,{dark:!0,language:"bash",code:`
 pnpm add @flightlesslabs/number-format
 `}),`
 `,e.jsx(n.p,{children:"npm"}),`
-`,e.jsx(s,{dark:!0,language:"bash",code:`
+`,e.jsx(t,{dark:!0,language:"bash",code:`
 npm i @flightlesslabs/number-format
 `}),`
 `,e.jsx(n.h2,{id:"usage-example",children:"Usage example"}),`
 `,e.jsxs(n.p,{children:["Let's import ",e.jsx(n.a,{href:"?path=/docs/numericinput--docs",children:"NumericInput"})]}),`
-`,e.jsx(s,{dark:!0,language:"ts",code:`
+`,e.jsx(t,{dark:!0,language:"ts",code:`
 import { NumericInput } '@flightlesslabs/number-format';
 `}),`
 `,e.jsx(n.h2,{id:"explore-more",children:"Explore more"}),`
 `,e.jsxs(n.ul,{children:[`
 `,e.jsx(n.li,{children:e.jsx(n.a,{href:"?path=/docs/numericinput--docs",children:"NumericInput"})}),`
-`]})]})}function h(t={}){const{wrapper:n}={...r(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(i,{...t})}):i(t)}export{h as default};
+`,e.jsx(n.li,{children:e.jsx(n.a,{href:"?path=/docs/utils-getcurrencysymbol--docs",children:"getcurrencysymbol"})}),`
+`]})]})}function h(s={}){const{wrapper:n}={...i(),...s.components};return n?e.jsx(n,{...s,children:e.jsx(r,{...s})}):r(s)}export{h as default};
