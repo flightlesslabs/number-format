@@ -92,7 +92,7 @@
   let {
     class: className = '',
     ref = $bindable<HTMLInputElement>(),
-    autoNumericInstance = $bindable<AutoNumeric | null>(null),
+    autoNumericInstance = $bindable<AutoNumeric | null>(),
     oninput,
     onchange,
     onblur,
@@ -125,8 +125,6 @@
     decimalPadding = false,
     autoNumericCallbackOptions,
   }: NumericInputProps = $props();
-
-  let formattedValueCached = $state('');
 
   onMount(() => {
     if (!ref) return;
@@ -183,14 +181,17 @@
       // Dcimal Padding
       allowDecimalPadding: decimalPadding,
 
+      // suffix
+      suffixText: suffix,
+
+      // prefix
+      currencySymbol: prefix,
+
       // Control value with arrows
       modifyValueOnUpDownArrow,
 
       // Control value with mouse wheel
       modifyValueOnWheel,
-
-      // Hack: Hide suffux/prefix when hover
-      emptyInputBehavior: 'press',
     };
 
     if (autoNumericCallbackOptions !== undefined) {
@@ -215,28 +216,6 @@
     }
 
     autoNumericInstance.set(value === undefined ? '' : `${value}`);
-  });
-
-  $effect(() => {
-    if (!autoNumericInstance) {
-      return;
-    }
-
-    if (!suffix && !prefix) {
-      return;
-    }
-
-    const isValueExists = formattedValueCached.trim() !== '' ? true : false;
-
-    const suffixOptions: AutoNumericCallbackOptions = {
-      // suffix
-      suffixText: isValueExists ? suffix : '',
-
-      // prefix
-      currencySymbol: isValueExists ? prefix : '',
-    };
-
-    autoNumericInstance.update(suffixOptions);
   });
 
   function updateValue(val: number | null | undefined, formattedValue: string) {
@@ -267,8 +246,6 @@
     }
 
     updateValue(raw, formatted);
-
-    formattedValueCached = formatted;
 
     if (onValueChange) {
       const numericValue = raw === null ? undefined : raw;
