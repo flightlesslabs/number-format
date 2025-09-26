@@ -2,17 +2,40 @@ import { Source } from '@storybook/addon-docs/blocks';
 
 # getCurrencySymbol
 
-This utility function retrieves the standard **currency symbol** associated with a 3-letter alphabetic currency code (ISO 4217). It's a quick and reliable way to get symbols like '$', '€', or '¥' using the browser's built-in internationalization API (`Intl.NumberFormat`).
+This utility function retrieves the standard **currency symbol** associated with a 3-letter alphabetic currency code (ISO 4217).
+
+It utilizes the browser's built-in internationalization API (`Intl.NumberFormat`) in the `en-US` locale to reliably get symbols like '$', '€', or '¥'. For currencies without a dedicated symbol (e.g., 'LKN'), the function returns the code itself, which may include a trailing space (e.g., `'LKN '`).
+
+---
+
+## API
+
+### `getCurrencySymbol(alphabeticCode, trim)`
+
+| Name                 | Type      | Description                                                                                                                                           | Default |
+| :------------------- | :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :------ |
+| **`alphabeticCode`** | `string`  | The **3-letter alphabetic ISO 4217 currency code** (e.g., 'USD', 'EUR', 'LKN').                                                                       | N/A     |
+| **`trim`**           | `boolean` | If `true`, removes leading and trailing whitespace. Useful when the output is the currency code with an extra space (e.g., `'LKN '` becomes `'LKN'`). | `false` |
+
+---
+
+## Examples
 
 <Source
   dark
   language="ts"
   code={`
-import { getCurrencySymbol } '@flightlesslabs/number-format';
+import { getCurrencySymbol } from '@flightlesslabs/number-format';
 
-// Usage
+// Standard Symbols
 getCurrencySymbol('USD') // '$'
 getCurrencySymbol('EUR') // '€'
 getCurrencySymbol('GBP') // '£'
+
+// Codes without standard symbols often result in a trailing space
+getCurrencySymbol('LKN') // 'LKN '
+
+// Use 'trim: true' to remove the trailing space
+getCurrencySymbol('LKN', true) // 'LKN'
 `}
 />
