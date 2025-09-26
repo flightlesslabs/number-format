@@ -22,11 +22,6 @@
 
 <Story name="Decimal Places with Padding" args={{ decimalPlaces: 2, decimalPadding: true }} />
 
-<Story name="Format Currency" args={{ formatCurrency: true }} />
-
-<!-- Lakh Separator for INR -->
-<Story name="Lakh Separator" args={{ formatCurrency: true, lakhSeparator: true }} />
-
 <Story name="Prefix" args={{ prefix: '$' }} />
 
 <Story name="Suffix" args={{ suffix: ' Units' }} />

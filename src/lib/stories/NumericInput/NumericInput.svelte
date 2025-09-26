@@ -54,6 +54,8 @@
     modifyValueOnUpDownArrow?: boolean;
     /** Determine if the element value can be incremented / decremented with the mouse wheel. */
     modifyValueOnWheel?: boolean;
+    /** Override [AutoNumeric](https://autonumeric.org/) options  */
+    autoNumericCallbackOptions?: AutoNumericCallbackOptions;
     /** Events */
     /** oninput event handler */
     oninput?: FormEventHandler<HTMLInputElement>;
@@ -118,6 +120,7 @@
     modifyValueOnUpDownArrow = false,
     modifyValueOnWheel = false,
     decimalPadding = false,
+    autoNumericCallbackOptions,
   }: NumericInputProps = $props();
 
   let an = $state<AutoNumeric | null>(null);
@@ -152,7 +155,7 @@
       minimumValue = '0';
     }
 
-    const options: AutoNumericCallbackOptions = {
+    let options: AutoNumericCallbackOptions = {
       // readonly
       readOnly: readonly,
 
@@ -189,6 +192,13 @@
       // Control value with mouse wheel
       modifyValueOnWheel,
     };
+
+    if (autoNumericCallbackOptions !== undefined) {
+      options = {
+        ...options,
+        ...autoNumericCallbackOptions,
+      };
+    }
 
     an.update(options);
   });
@@ -261,4 +271,5 @@
   {onkeypress}
   {onkeyup}
   {placeholder}
+  data-dodo-ui-number-format
 />
